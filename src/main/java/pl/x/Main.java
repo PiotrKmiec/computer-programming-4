@@ -1,4 +1,4 @@
-package main;
+package pl.x;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +11,7 @@ public class Main {
 	    names
 				.stream()
 				.filter(name -> name.endsWith("a"))
-				.forEach(female_name -> (new Greeter()).greet(female_name));
+				.map(String::toUpperCase)
+				.forEach((new Greeter())::greet);
     }
 }

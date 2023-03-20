@@ -1,4 +1,4 @@
-package main;
+package pl.x;
 
 public class Greeter {
     public void greet(String name){
