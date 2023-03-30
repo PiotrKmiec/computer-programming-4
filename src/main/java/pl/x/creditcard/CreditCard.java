@@ -15,7 +15,7 @@ public class CreditCard {
 
     //Action methods
     public void assignLimit(BigDecimal amount) {
-        if (balance != null) {
+        if (this.isBalanceSet()) {
             throw new CreditAlreadyAssignedException();
         }
         if (amount.compareTo(BigDecimal.valueOf(100)) < 0) {
@@ -42,22 +42,23 @@ public class CreditCard {
     }
 
     public void reassignLimit(BigDecimal amount) {
-        if (this.valueIsUnderLimit(amount)) {
+        if (this.isValueUnderLimit(amount)) {
             throw new CreditBelowLimitException();
         }
         this.balance = amount;
     }
 
+    //Boolean methods
+    public boolean isBalanceSet() { return this.balance != null; }
+    public boolean isValueUnderLimit(BigDecimal amount) {
+        return amount.compareTo(BigDecimal.valueOf(100)) < 0;
+    }
+    public boolean areFundsSufficient(BigDecimal cost) {
+        return this.balance.compareTo(cost) < 0;
+    }
+
     //Getters, Setters and Checkers
     public BigDecimal getCurrentBalance() {
         return this.balance;
-    }
-
-    public boolean valueIsUnderLimit(BigDecimal amount) {
-        return amount.compareTo(BigDecimal.valueOf(100)) < 0;
-    }
-
-    public boolean areFundsSufficient(BigDecimal amount) {
-        return this.balance.compareTo(amount) < 0;
     }
 }
