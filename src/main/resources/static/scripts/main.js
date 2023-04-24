@@ -1,15 +1,11 @@
-let root = document.querySelector("#root");
+const root = document.querySelector("#root");
 
-let tc = textCounter();
+const res = axios.get('/api/products');
 
-setInterval(()=>{
-    root.innerText = tc.next().value;
-}, 1000);
-
-function* textCounter() {
-    let i = 0;
-    while (true) {
-        i++;
-        yield(`Count: ${i}`);
+res.then((productsJson) => {
+    if(productsJson.data){
+        root.innerText = JSON.stringify(productsJson.data[0], null, 2);
+    }else{
+        console.error("Error GET-ting products");
     }
-}
+});
